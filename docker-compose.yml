@@ -1,0 +1,91 @@
+version: '3.8'
+
+volumes:
+  db_storage:
+    name: db_storage
+
+  n8n_storage:
+    name: n8n_storage
+
+  python_dir:
+    name: python_dir
+
+networks:
+  n8n_network:
+    name: n8n_network
+
+  proxy_manager:
+    external: true
+
+services:
+  n8n_postgres:
+    image: postgres:11
+    container_name: postgres-n8n
+    restart: always
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+      - POSTGRES_NON_ROOT_USER
+      - POSTGRES_NON_ROOT_PASSWORD
+    networks:
+      - n8n_network
+    volumes:
+      - db_storage:/var/lib/postgresql/data
+      - ./init-data.sh:/docker-entrypoint-initdb.d/init-data.sh:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -h localhost -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  n8n:
+    build:
+      context: .
+      dockerfile: Dockerfile-n8n-python
+    container_name: n8n-service
+    restart: always
+    environment:
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=n8n_postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=${POSTGRES_DB}
+      - DB_POSTGRESDB_USER=${POSTGRES_NON_ROOT_USER}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_NON_ROOT_PASSWORD}
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER
+      - N8N_BASIC_AUTH_PASSWORD
+      - WEBHOOK_URL=${N8N_WEBHOOK_URL}
+    networks:
+      - n8n_network
+      - proxy_manager
+    ports:
+      - '5678:5678'
+    volumes:
+      - n8n_storage:/home/node/.n8n
+      - .n8n-local-files:/files
+      - python_dir:/data/python_dir
+    command: /bin/sh -c "n8n start"
+    depends_on:
+      n8n_postgres:
+        condition: service_healthy
+
+  code_server:
+    image: linuxserver/code-server
+    container_name: code-server
+    restart: always
+    networks:
+      - n8n_network
+      - proxy_manager
+    ports:
+      - '8443:8443'
+    volumes:
+      - python_dir:/home/${CODER_USER}/python_dir
+    environment:
+      - TZ=America/Sao_Paulo
+      - CODER_USER=${CODER_USER}
+      - PUID=${CODER_PUID}
+      - PGID=${CODER_PGID}
+      - PASSWORD=${CODER_PASS}
+      - SUDO_PASSWORD=${ROOT_CODER_PASS}
+      - DEFAULT_WORKSPACE=/home/${CODER_USER}/python_dir
