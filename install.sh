@@ -1,7 +1,6 @@
 #!/bin/bash
 export $(grep -v '^#' .env | xargs)
 docker-compose down
-docker system prune -af --volumes
 docker-compose up -d
 docker cp ./python/. code-server:"/home/${CODER_USER}/python_dir"
 docker cp ./init-coder.sh code-server:"/home/${CODER_USER}/python_dir/init-coder.sh"
