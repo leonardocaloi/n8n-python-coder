@@ -21,3 +21,12 @@ source "$PWD/venv/bin/activate"
 sudo -u $CODER_USER pip3 install --upgrade pip
 sudo -u $CODER_USER pip3 install -r "/home/$CODER_USER/python_dir/requirements.txt"
 
+# Copie o arquivo requirements.txt para o diretório do usuário
+cp /home/$CODER_USER/python_dir/requirements.txt /home/$CODER_USER/
+
+# Ative o ambiente virtual e instale os pacotes
+/bin/bash -c "source /home/$CODER_USER/python_dir/venv/bin/activate && \
+    pip install -r /home/$CODER_USER/requirements.txt"
+
+# Remova o arquivo requirements.txt copiado
+rm /home/$CODER_USER/requirements.txt
