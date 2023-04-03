@@ -11,5 +11,5 @@ RUN pip3 install -r requirements.txt
 
 RUN rm requirements.txt
 
-# Crie o diretório e conceda permissões de escrita
-RUN mkdir -p /home/node/audio && chown -R node:node /home/node/audio
+# Conceda permissão de escrita ao diretório python_dir para o usuário node
+RUN mkdir -p /data/python_dir && chown -R node:node /data/python_dir
