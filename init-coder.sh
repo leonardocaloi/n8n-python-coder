@@ -1,23 +1,23 @@
 #!/bin/bash
 
-# shellcheck disable=SC2046
-usermod -l "$CODER_USER" $(getent passwd "$PUID" | cut -d: -f1)
+# Crie o usuário caloi
+useradd -u $N8N_CODER_PUID -G $PGID $N8N_CODER_USER
 
-# Create N8N_CODER_USER
-useradd -u $N8N_CODER_PUID -g $N8N_CODER_PGID -m $N8N_CODER_USER
+# Defina a senha do usuário caloi
+echo "${N8N_CODER_USER}:${N8N_CODER_PASS}" | chpasswd
 
-# Set password for N8N_CODER_USER
-echo "$N8N_CODER_USER:$N8N_CODER_PASS" | chpasswd
+# Altere as permissões do diretório python_dir
+chown -R "$N8N_CODER_PUID":"$N8N_CODER_PGID" "/home/$CODER_USER/python_dir"
 
-chown -R "$PUID":"$PGID" "/home/$CODER_USER/python_dir"
-
+# Instale as extensões
 /app/code-server/bin/code-server --install-extension ms-python.python --extensions-dir /config/extensions
 /app/code-server/bin/code-server --install-extension dracula-theme.theme-dracula --extensions-dir /app/code-server/lib/vscode/extensions/
 
-apt update -y && apt install -y python3-pip
-apt install -y python3-venv
+# Instale os pacotes necessários
+apt update -y && apt install -y python3-pip python3-venv
 apt clean && rm -rf /var/lib/apt/lists
 
+# Crie e ative o ambiente virtual
 mkdir -p "/home/$N8N_CODER_USER/python_dir/venv/"
 cd "/home/$N8N_CODER_USER/python_dir" && python3 -m venv venv/
 
