@@ -92,4 +92,4 @@ services:
       - N8N_CODER_PUID=${N8N_CODER_PUID}
       - N8N_CODER_PGID=${N8N_CODER_PGID}
       - N8N_CODER_PASS=${N8N_CODER_PASS}
-      - DEFAULT_WORKSPACE=/home/${N8N_CODER_PASS}/python_dir
+      - DEFAULT_WORKSPACE=/home/${N8N_CODER_USER}/python_dir
