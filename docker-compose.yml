@@ -80,7 +80,7 @@ services:
     ports:
       - '8443:8443'
     volumes:
-      - python_dir:/home/${CODER_USER}/python_dir
+      - python_dir:/home/${N8N_CODER_USER}/python_dir
     environment:
       - TZ=America/Sao_Paulo
       - CODER_USER=${CODER_USER}
