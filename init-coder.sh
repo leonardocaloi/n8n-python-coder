@@ -7,7 +7,7 @@ useradd -u $N8N_CODER_PUID -G $PGID $N8N_CODER_USER
 echo "${N8N_CODER_USER}:${N8N_CODER_PASS}" | chpasswd
 
 # Altere as permissões do diretório python_dir
-chown -R "$N8N_CODER_PUID":"$N8N_CODER_PGID" "/home/$CODER_USER/python_dir"
+chown -R "$N8N_CODER_PUID":"$N8N_CODER_PGID" "/home/$N8N_CODER_USER/python_dir"
 
 # Instale as extensões
 /app/code-server/bin/code-server --install-extension ms-python.python --extensions-dir /config/extensions
