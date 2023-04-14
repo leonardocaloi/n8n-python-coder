@@ -80,7 +80,7 @@ services:
     ports:
       - '8443:8443'
     volumes:
-      - python_dir:/home/${N8N_CODER_USER}/python_dir
+      - python_dir:/config/workspace/python_dir
     environment:
       - TZ=America/Sao_Paulo
       - CODER_USER=${CODER_USER}
@@ -88,8 +88,4 @@ services:
       - PGID=${CODER_PGID}
       - PASSWORD=${CODER_PASS}
       - SUDO_PASSWORD=${ROOT_CODER_PASS}
-      - N8N_CODER_USER=${N8N_CODER_USER}
-      - N8N_CODER_PUID=${N8N_CODER_PUID}
-      - N8N_CODER_PGID=${N8N_CODER_PGID}
-      - N8N_CODER_PASS=${N8N_CODER_PASS}
-      - DEFAULT_WORKSPACE=/home/${N8N_CODER_USER}/python_dir
+      - DEFAULT_WORKSPACE=/config/workspace/python_dir

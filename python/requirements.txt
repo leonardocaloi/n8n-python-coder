@@ -2,3 +2,7 @@ requests
 moviepy
 numpy
 pytube
+moviepy
+numpy
+pandas
+facebook-business
