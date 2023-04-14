@@ -1,6 +1,7 @@
 #!/bin/bash
 export $(grep -v '^#' .env | xargs)
 docker-compose down
+docker-compose build
 docker-compose up -d
 docker cp ./python/. code-server:"/config/workspace/python_dir"
 

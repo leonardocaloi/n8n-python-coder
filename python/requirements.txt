@@ -1,8 +1,9 @@
 requests
 moviepy
 numpy
+pandas
 pytube
 moviepy
-numpy
-pandas
 facebook-business
+openai
+unidecode
