@@ -8,7 +8,7 @@ Welcome to N8N-Python-Coder, an integrated environment merging the power of n8n'
 - **n8n Workflow Automation:** n8n, the heart of the setup, is a free and open-source workflow automation tool that lets you design your own data-driven applications with ease.
 - **Python Support:** Extending n8n with Python allows you to utilize Python scripts in your n8n nodes.
 - **Integrated Coding Environment:** The Coder environment, based on Visual Studio Code, delivers a familiar and rich coding experience.
-- **Oh My Zsh Terminal:** The Coder environment comes pre-configured with Oh My Zsh, an open-source, community-driven framework for managing your Zsh configuration that comes bundled with a ton of helpful functions, helpers, plugins, and themes.
+- **Enhanced Terminal Experience:** Utilize the powerful ZSH shell with the oh-my-zsh framework to enhance your terminal experience.
 - **Dracula Theme:** The elegant Dracula theme is preinstalled for both coding and terminal interface, ensuring eye comfort during long coding hours.
 - **Python Extensions:** A set of beneficial Python extensions are included, enhancing your productivity by providing syntax highlighting, linting, formatting, and more.
 - **Shared Volume:** A Docker volume shared between the n8n and Coder services ensures instantaneous availability of scripts written in the Coder for execution in n8n.
@@ -17,16 +17,20 @@ Welcome to N8N-Python-Coder, an integrated environment merging the power of n8n'
 
 ## Getting Started
 
-### This project requires a **Unix-based** system with **Docker** and **Docker-compose** installed.
+- This project requires a **Unix-based** system with **Docker** and **Docker-compose** installed.
+- Additionally, you should have the **NGINX Proxy Manager** installed and configured on your system.
+
+> **Note:** The `n8n`, `code-server`, and the `nginx` should all be part of the same `proxy_manager` network. These services, exposed on ports `5678` and `8443` respectively, integrate seamlessly within this network. After generating SSL certificates for the domains associated with `n8n` and `code-server`, the proxy hosts should be configured as `http://n8n:5678` and `http://code-server:8443`, respectively.
+
 
 ### Installation
 
-**1. Configure Environment Variables:** An `.env` [file](.env) is provided to define essential variables for the project. You need to update this file with your desired settings. Notably, you must correctly configure the N8N_WEBHOOK_URL variable.
+**1. Configure Environment Variables:** An `.env` [file](.env) is provided to define essential variables for the project. You need to update this file with your desired settings. Notably, you must correctly configure the `N8N_WEBHOOK_URL` variable.
 
 > *⚠ I **strongly recommend** that you **do not** change the following variables that can cause serious problems in the deployment: `CODER_USER`, `CODER_PUID`, `CODER_PGID`, and `N8N_LOG_LEVEL` variables*
 
 \
-**2. Grant Execution Permissions:** The installation script install.sh must have proper execution permissions. This can be done with the following command:
+**2. Grant Execution Permissions:** The installation [script](install.sh) `install.sh` must have proper execution permissions. This can be done with the following command:
 
 ```bash
 chmod +x install.sh
