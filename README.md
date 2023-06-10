@@ -17,7 +17,7 @@ Welcome to N8N-Python-Coder, an integrated environment merging the power of n8n'
 
 ## Getting Started
 
-### This project requires a **Linux-based** system with **Docker** and **Docker-compose** installed.
+### This project requires a **Unix-based** system with **Docker** and **Docker-compose** installed.
 
 ### Installation
 
