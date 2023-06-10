@@ -21,7 +21,7 @@ Welcome to N8N-Python-Coder, an integrated environment merging the power of n8n'
 
 ### Installation
 
-**1. Configure Environment Variables:** An `.env` file is provided to define essential variables for the project. You need to update this file with your desired settings. Notably, you must correctly configure the N8N_WEBHOOK_URL variable.
+**1. Configure Environment Variables:** An `.env` [file](.env) is provided to define essential variables for the project. You need to update this file with your desired settings. Notably, you must correctly configure the N8N_WEBHOOK_URL variable.
 
 > *⚠ I **strongly recommend** that you **do not** change the following variables that can cause serious problems in the deployment: `CODER_USER`, `CODER_PUID`, `CODER_PGID`, and `N8N_LOG_LEVEL` variables*
 
