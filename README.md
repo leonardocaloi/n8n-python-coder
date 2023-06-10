@@ -18,7 +18,7 @@ Welcome to N8N-Python-Coder, an integrated environment merging the power of n8n'
 ## Getting Started
 
 - This project requires a **Unix-based** system with **Docker** and **Docker-compose** installed.
-- Additionally, you should have the **NGINX Proxy Manager** installed and configured on your system.
+- Additionally, if you don't have the **NGINX Proxy Manager** installed and configured on your system, you will need to set it up before proceeding. You can refer to this [link](https://github.com/leonardocaloi/nginx-proxy-manager) for instructions on how to install and configure the reverse proxy on your server.
 
 > **Note:** The `n8n`, `code-server`, and the `nginx` should all be part of the same `proxy_manager` network. These services, exposed on ports `5678` and `8443` respectively, integrate seamlessly within this network. After generating SSL certificates for the domains associated with `n8n` and `code-server`, the proxy hosts should be configured as `http://n8n:5678` and `http://code-server:8443`, respectively.
 
@@ -27,7 +27,9 @@ Welcome to N8N-Python-Coder, an integrated environment merging the power of n8n'
 
 **1. Configure Environment Variables:** An `.env` [file](.env) is provided to define essential variables for the project. You need to update this file with your desired settings. Notably, you must correctly configure the `N8N_WEBHOOK_URL` variable.
 
-> *⚠ I **strongly recommend** that you **do not** change the following variables that can cause serious problems in the deployment: `CODER_USER`, `CODER_PUID`, `CODER_PGID`, and `N8N_LOG_LEVEL` variables*
+> **Note:** The `N8N_WEBHOOK_URL` should match the domain you've set for the `n8n` service in the proxy host.
+  
+> *⚠ **WARNING:** I **strongly recommend** that you **do not** change the following variables that can cause serious problems in the deployment: `CODER_USER`, `CODER_PUID`, `CODER_PGID`, and `N8N_LOG_LEVEL` variables.*
 
 \
 **2. Grant Execution Permissions:** The installation [script](install.sh) `install.sh` must have proper execution permissions. This can be done with the following command:
